@@ -131,9 +131,9 @@ const myVibe = createVibe();`}
               <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 opacity-0 transition-opacity group-hover:opacity-10"></div>
               <div className="p-6">
                 <Lightbulb className="h-10 w-10 text-purple-600 mb-4" />
-                <h3 className="text-xl font-bold">Beginner's Guide</h3>
+                <h3 className="text-xl font-bold">Beginner’s Guide</h3>
                 <p className="mt-2 text-gray-500 dark:text-gray-400">
-                  Start your vibecode journey with our comprehensive beginner's guide.
+                  Start your vibecode journey with our comprehensive beginner’s guide.
                 </p>
                 <Link
                   href="#"
@@ -215,8 +215,8 @@ const myVibe = createVibe();`}
                 </div>
               </div>
               <p className="mt-4 text-gray-500 dark:text-gray-400">
-                "VibeCademy transformed my approach to coding. The vibecode resources are exceptional and the community
-                is incredibly supportive."
+                “VibeCademy transformed my approach to coding. The vibecode resources are exceptional and the community
+                is incredibly supportive.”
               </p>
             </div>
             <div className="rounded-lg border p-6 shadow-sm">
@@ -238,8 +238,8 @@ const myVibe = createVibe();`}
                 </div>
               </div>
               <p className="mt-4 text-gray-500 dark:text-gray-400">
-                "As a designer learning to code, VibeCademy made the process enjoyable and intuitive. The vibecode
-                tutorials are perfect for visual learners."
+                “As a designer learning to code, VibeCademy made the process enjoyable and intuitive. The vibecode
+                tutorials are perfect for visual learners.”
               </p>
             </div>
             <div className="rounded-lg border p-6 shadow-sm">
@@ -261,8 +261,8 @@ const myVibe = createVibe();`}
                 </div>
               </div>
               <p className="mt-4 text-gray-500 dark:text-gray-400">
-                "The advanced vibecode techniques I learned at VibeCademy helped me land my dream job. The platform
-                offers resources for all skill levels."
+                “The advanced vibecode techniques I learned at VibeCademy helped me land my dream job. The platform
+                offers resources for all skill levels.”
               </p>
             </div>
           </div>

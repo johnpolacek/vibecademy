@@ -51,7 +51,11 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
-  const { userId } = await auth()
+  // Check if Clerk is configured
+  const hasClerkConfig = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY && process.env.CLERK_SECRET_KEY
+
+  // Only try to get auth if Clerk is configured
+  const { userId } = hasClerkConfig ? await auth() : { userId: null }
   const adminUserIds = process.env.ADMIN_USER_IDS?.split(",") || []
   const isAdmin = userId ? adminUserIds.includes(userId) : false
 
@@ -65,11 +69,75 @@ export default async function RootLayout({
 
   const currentYear = new Date().getFullYear()
 
+  // If Clerk is not configured, render without the provider
+  if (!hasClerkConfig) {
+    return (
+      <html lang="en" suppressHydrationWarning className={`${rethinkSans.variable}`}>
+        <body className={cn("min-h-screen bg-background font-sans antialiased")}>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <RouteTracker />
+            <div className="relative flex min-h-screen flex-col">
+              <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur-sm supports-backdrop-filter:bg-background/60">
+                <div className="px-4 sm:px-8 md:px-16 flex h-16 items-center justify-between">
+                  <div className="flex items-center gap-2 md:gap-6">
+                    <MobileNav />
+                    <MainNav isAdmin={false} />
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="flex items-center pr-2 gap-2">
+                      {siteConfig.x && (
+                        <Link href={siteConfig.x} target="_blank" className="text-muted-foreground hover:text-primary">
+                          <span className="text-xl font-extrabold px-2 mx-1">𝕏</span>
+                        </Link>
+                      )}
+                      {siteConfig.github && (
+                        <Link href={siteConfig.github} target="_blank" className="px-1 mx-1 text-muted-foreground hover:text-primary">
+                          <Github className="w-5 h-5" />
+                        </Link>
+                      )}
+                    </div>
+                    <ThemeToggle />
+                  </div>
+                </div>
+              </header>
+              <main className="flex-1">{children}</main>
+              <footer className="border-t-4 border-primary/10 bg-primary/5 py-6 md:py-0">
+                <div className="container flex flex-col items-center justify-between gap-4 md:h-16 md:flex-row">
+                  <p className="text-center text-sm leading-loose text-muted-foreground md:text-left">© {currentYear} {siteConfig.title}. All rights reserved.</p>
+                  <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                    <Link href="/privacy" className="hover:underline">
+                      Privacy
+                    </Link>
+                    <Link href="/terms" className="hover:underline">
+                      Terms
+                    </Link>
+                  </div>
+                </div>
+              </footer>
+            </div>
+            <Toaster position="top-center" />
+          </ThemeProvider>
+        </body>
+      </html>
+    )
+  }
+
+  // If Clerk is configured, render with the provider
   return (
     <ClerkProvider>
       <html lang="en" suppressHydrationWarning className={`${rethinkSans.variable}`}>
         <body className={cn("min-h-screen bg-background font-sans antialiased")}>
-          <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
             <RouteTracker />
             <div className="relative flex min-h-screen flex-col">
               <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur-sm supports-backdrop-filter:bg-background/60">

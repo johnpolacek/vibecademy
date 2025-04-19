@@ -5,7 +5,8 @@ export const siteConfig = {
   url: "vibecademy.vercel.app",
   shareImage: "https://starter.vibecode.party/screenshot.png",
   x: "",
-  github: ""
+  github: "",
+  logo: ""
 } as const
 
 export type SiteConfig = {
@@ -16,4 +17,5 @@ export type SiteConfig = {
     shareImage: string
     x: string
     github: string
+    logo: string
 }
